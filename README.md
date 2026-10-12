@@ -10,6 +10,7 @@
 - Toplam öğrenci, kitap, sayfa ve dakika istatistikleri
 - Son 7 günün okuma grafiği
 - Öğrencilerin toplam sayfa sayısına göre performans sıralaması
+- Öğrenci bazında toplam sayfa, okuma süresi, farklı kitap ve okuma günü analizi
 - Excel ile açılabilen CSV okuma raporu
 - Tek tıkla örnek portföy verileri oluşturma (mevcut verileri değiştirmeden önce onay)
 - Günlük sayfa hedefi ve ilerleme çubuğu
@@ -55,5 +56,6 @@ Uygulamayı açın ve **Örnek verileri yükle** butonuna basın. Onay sonrasın
 - Sayfa yenilendiğinde kayıtlar korunmalı.
 - Öğrenci sıralaması sayfa toplamına göre azalan sırada olmalı.
 - CSV dosyası indirilebilmeli ve Türkçe karakterler doğru görünmeli.
+- Öğrenci seçildiğinde detay analizindeki dört gösterge doğru hesaplanmalı.
 - JSON yedek geri yükleme sonrasında veriler korunmalı.
 - Örnek veri yükleme öncesinde onay istenmeli.

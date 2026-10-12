@@ -9,6 +9,8 @@
 - Öğrenciye göre okuma geçmişini filtreleme
 - Toplam öğrenci, kitap, sayfa ve dakika istatistikleri
 - Son 7 günün okuma grafiği
+- Öğrencilerin toplam sayfa sayısına göre performans sıralaması
+- Excel ile açılabilen CSV okuma raporu
 - Günlük sayfa hedefi ve ilerleme çubuğu
 - Tarayıcıda kalıcı veri saklama (localStorage)
 - JSON yedek indirme ve geri yükleme

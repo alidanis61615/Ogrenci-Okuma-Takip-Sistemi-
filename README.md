@@ -1,5 +1,10 @@
 # 📚 OkuTrack — Öğrenci Okuma Takip ve Analiz Sistemi
 
+**[🚀 Canlı uygulamayı aç](https://alidanis61615.github.io/Ogrenci-Okuma-Takip-Sistemi-/)** · **[Kaynak kodları](https://github.com/alidanis61615/Ogrenci-Okuma-Takip-Sistemi-)**
+
+![HTML5](https://img.shields.io/badge/HTML5-web-E34F26) ![CSS3](https://img.shields.io/badge/CSS3-responsive-1572B6) ![JavaScript](https://img.shields.io/badge/JavaScript-vanilla-F7DF1E) ![License](https://img.shields.io/badge/license-MIT-blue)
+
+
 Öğrencilerin kitap okuma alışkanlıklarını kaydetmek, günlük hedeflerini takip etmek ve okuma performanslarını analiz etmek için geliştirilmiş, mobil uyumlu web uygulaması.
 
 ## Özellikler
@@ -24,8 +29,11 @@ HTML5, CSS3, Vanilla JavaScript, Web Storage API.
 ## Çalıştırma
 `index.html` dosyasını modern bir tarayıcıda açın. Paket kurulumu ve sunucu gerektirmez.
 
+## Canlı demo
+[OkuTrack uygulamasını tarayıcıda aç](https://alidanis61615.github.io/Ogrenci-Okuma-Takip-Sistemi-/). Kurulum gerektirmez. **Örnek verileri yükle** ile test kayıtları oluşturulabilir.
+
 ## GitHub Pages
-Repository > Settings > Pages > Build and deployment > Deploy from a branch > main / (root) > Save.
+Depo, `main` dalının kök dizinindeki `index.html` üzerinden GitHub Pages ile yayınlanabilir.
 
 ## Kullanım
 1. Önce öğrenci ve kitap ekleyin.
@@ -37,7 +45,7 @@ Repository > Settings > Pages > Build and deployment > Deploy from a branch > ma
 Bu sürümde hesap sistemi veya sunucu veritabanı yoktur. Kayıtlar yalnızca kullanılan tarayıcının localStorage alanında tutulur. Tarayıcı verileri silinirse kayıtlar kaybolabilir; yedekleme önerilir. Aynı cihazda farklı kullanıcılar için erişim kontrolü sunulmaz. Gerçek öğrenci kişisel verilerini izin ve uygun güvenlik tedbirleri olmadan kullanmayın.
 
 ## Gelecek geliştirmeler
-Kimlik doğrulama, sunucu tabanlı veritabanı, sınıf yönetimi, CSV/PDF raporlama ve otomatik testler.
+Kimlik doğrulama, sunucu tabanlı veritabanı, sınıf yönetimi, PDF raporlama ve kapsamlı otomatik testler.
 
 ## Geliştirici
 [Ali Danış](https://github.com/alidanis61615)
@@ -48,6 +56,9 @@ Kimlik doğrulama, sunucu tabanlı veritabanı, sınıf yönetimi, CSV/PDF rapor
 Uygulamayı açın ve **Örnek verileri yükle** butonuna basın. Onay sonrasında üç örnek öğrenci, üç kitap ve yedi günlük örnek okuma kayıtları oluşturulur. Öğrenci sıralamasını, grafik ve CSV raporunu inceleyin.
 
 **Uyarı:** Örnek veri yükleme, mevcut tarayıcı kayıtlarının yerini alır. Gerçek kayıtlarınız varsa önce JSON yedeğini indirin.
+
+## Doğrulanan kullanıcı senaryoları (12 Ekim 2026)
+Kullanıcı tarafından öğrenci/kitap ekleme, okuma kaydı, grafik ve hedef güncellemesi, sayfa yenilemede veri korunması, demo veri yükleme, öğrenci analizi, CSV indirme, JSON yedekleme ve GitHub Pages erişimi çalışır olarak bildirildi. Bunlar kullanıcı testleridir; kapsamlı otomatik uçtan uca test yerine geçmez.
 
 ## Manuel test senaryoları
 - Öğrenci eklenince öğrenci sayısı artmalı.

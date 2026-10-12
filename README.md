@@ -11,6 +11,7 @@
 - Son 7 günün okuma grafiği
 - Öğrencilerin toplam sayfa sayısına göre performans sıralaması
 - Excel ile açılabilen CSV okuma raporu
+- Tek tıkla örnek portföy verileri oluşturma (mevcut verileri değiştirmeden önce onay)
 - Günlük sayfa hedefi ve ilerleme çubuğu
 - Tarayıcıda kalıcı veri saklama (localStorage)
 - JSON yedek indirme ve geri yükleme
@@ -41,3 +42,18 @@ Kimlik doğrulama, sunucu tabanlı veritabanı, sınıf yönetimi, CSV/PDF rapor
 [Ali Danış](https://github.com/alidanis61615)
 
 > Portföy amaçlı geliştirilen eğitim teknolojisi projesidir.
+
+## Portföy demosunu deneme
+Uygulamayı açın ve **Örnek verileri yükle** butonuna basın. Onay sonrasında üç örnek öğrenci, üç kitap ve yedi günlük örnek okuma kayıtları oluşturulur. Öğrenci sıralamasını, grafik ve CSV raporunu inceleyin.
+
+**Uyarı:** Örnek veri yükleme, mevcut tarayıcı kayıtlarının yerini alır. Gerçek kayıtlarınız varsa önce JSON yedeğini indirin.
+
+## Manuel test senaryoları
+- Öğrenci eklenince öğrenci sayısı artmalı.
+- Kitap eklenince kitap sayısı artmalı.
+- Okuma kaydı eklenince toplam sayfa, dakika ve grafik güncellenmeli.
+- Sayfa yenilendiğinde kayıtlar korunmalı.
+- Öğrenci sıralaması sayfa toplamına göre azalan sırada olmalı.
+- CSV dosyası indirilebilmeli ve Türkçe karakterler doğru görünmeli.
+- JSON yedek geri yükleme sonrasında veriler korunmalı.
+- Örnek veri yükleme öncesinde onay istenmeli.

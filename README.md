@@ -1,72 +1,67 @@
-# 📚 OkuTrack — Öğrenci Okuma Takip ve Analiz Sistemi
+# OkuTrack — Öğrenci Okuma Takip ve Analiz
 
-**[🚀 Canlı uygulamayı aç](https://alidanis61615.github.io/Ogrenci-Okuma-Takip-Sistemi-/)** · **[Kaynak kodları](https://github.com/alidanis61615/Ogrenci-Okuma-Takip-Sistemi-)**
+Öğrencilerin kitap okuma alışkanlıklarını kaydetmek, günlük hedeflerini takip etmek ve okuma performanslarını analiz etmek için geliştirilen, mobil uyumlu web uygulaması.
 
-![HTML5](https://img.shields.io/badge/HTML5-web-E34F26) ![CSS3](https://img.shields.io/badge/CSS3-responsive-1572B6) ![JavaScript](https://img.shields.io/badge/JavaScript-vanilla-F7DF1E) ![License](https://img.shields.io/badge/license-MIT-blue)
+**[Canlı demoyu aç](https://alidanis61615.github.io/Ogrenci-Okuma-Takip-Sistemi-/) · [Test senaryoları](TESTING.md) · [MIT lisansı](LICENSE)**
 
-
-Öğrencilerin kitap okuma alışkanlıklarını kaydetmek, günlük hedeflerini takip etmek ve okuma performanslarını analiz etmek için geliştirilmiş, mobil uyumlu web uygulaması.
+[![Code quality](https://github.com/alidanis61615/Ogrenci-Okuma-Takip-Sistemi-/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/alidanis61615/Ogrenci-Okuma-Takip-Sistemi-/actions/workflows/ci.yml)
 
 ## Özellikler
-- Öğrenci ekleme ve silme
-- Kitap ekleme ve silme
-- Öğrenci ve kitap bazında tarihli okuma kaydı (sayfa / dakika)
-- Öğrenciye göre okuma geçmişini filtreleme
-- Toplam öğrenci, kitap, sayfa ve dakika istatistikleri
-- Son 7 günün okuma grafiği
-- Öğrencilerin toplam sayfa sayısına göre performans sıralaması
-- Öğrenci bazında toplam sayfa, okuma süresi, farklı kitap ve okuma günü analizi
-- Excel ile açılabilen CSV okuma raporu
-- Tek tıkla örnek portföy verileri oluşturma (mevcut verileri değiştirmeden önce onay)
-- Günlük sayfa hedefi ve ilerleme çubuğu
-- Tarayıcıda kalıcı veri saklama (localStorage)
-- JSON yedek indirme ve geri yükleme
-- Mobil uyumlu, sade arayüz
 
-## Kullanılan teknolojiler
-HTML5, CSS3, Vanilla JavaScript, Web Storage API.
+| Alan | İşlevler |
+| --- | --- |
+| Kayıt yönetimi | Öğrenci ve kitap ekleme/silme; tarih, sayfa ve dakika ile okuma kaydı |
+| İstatistikler | Öğrenci/kitap sayısı, toplam sayfa ve dakika, öğrenci sıralaması |
+| Hedef ve grafik | Günlük sayfa hedefi, ilerleme çubuğu ve son 7 günlük okuma grafiği |
+| Öğrenci analizi | Toplam sayfa, okuma süresi, farklı kitap ve okuma günü sayısı |
+| Raporlama | Excel'de açılabilen CSV okuma raporu |
+| Veri yönetimi | localStorage ile kayıt saklama; JSON yedek indirme/geri yükleme |
+| Demo | Onayla yüklenen örnek öğrenci, kitap ve okuma kayıtları |
 
-## Çalıştırma
-`index.html` dosyasını modern bir tarayıcıda açın. Paket kurulumu ve sunucu gerektirmez.
+## Bir dakikalık demo
 
-## Canlı demo
-[OkuTrack uygulamasını tarayıcıda aç](https://alidanis61615.github.io/Ogrenci-Okuma-Takip-Sistemi-/). Kurulum gerektirmez. **Örnek verileri yükle** ile test kayıtları oluşturulabilir.
+1. **[Canlı uygulamayı](https://alidanis61615.github.io/Ogrenci-Okuma-Takip-Sistemi-/)** açın.
+2. **Örnek verileri yükle** seçeneğiyle demo kayıtlarını oluşturun.
+3. Öğrenci sıralamasını ve son 7 günlük grafiği inceleyin.
+4. Bir öğrenci seçerek detay analizini açın.
+5. CSV raporunu ve JSON yedeğini indirin.
 
-## GitHub Pages
-Depo, `main` dalının kök dizinindeki `index.html` üzerinden GitHub Pages ile yayınlanabilir.
+Örnek veri yükleme ve JSON geri yükleme mevcut tarayıcı kayıtlarının yerini alır. Kayıtlarınız varsa önce JSON yedeğini alın.
 
 ## Kullanım
-1. Önce öğrenci ve kitap ekleyin.
-2. Okuma kaydında öğrenci, kitap, tarih, sayfa ve dakika girin.
-3. Günlük hedefi belirleyin ve grafiklerden gelişimi inceleyin.
-4. Verileri JSON dosyası olarak yedekleyin.
 
-## Veri gizliliği ve sınırlamalar
-Bu sürümde hesap sistemi veya sunucu veritabanı yoktur. Kayıtlar yalnızca kullanılan tarayıcının localStorage alanında tutulur. Tarayıcı verileri silinirse kayıtlar kaybolabilir; yedekleme önerilir. Aynı cihazda farklı kullanıcılar için erişim kontrolü sunulmaz. Gerçek öğrenci kişisel verilerini izin ve uygun güvenlik tedbirleri olmadan kullanmayın.
+Önce öğrenci ve kitap ekleyin. Okuma kaydında öğrenci, kitap, tarih, sayfa ve dakika bilgilerini girin. Günlük hedefi belirleyerek ilerlemeyi takip edin; öğrenci filtresi ile geçmiş kayıtları inceleyin.
 
-## Gelecek geliştirmeler
-Kimlik doğrulama, sunucu tabanlı veritabanı, sınıf yönetimi, PDF raporlama ve kapsamlı otomatik testler.
+## Teknolojiler ve yapı
 
-## Geliştirici
-[Ali Danış](https://github.com/alidanis61615)
+- **HTML5 ve CSS3:** Mobil uyumlu arayüz ve formlar.
+- **Vanilla JavaScript:** Kayıt yönetimi, öğrenci analizi, grafik ve rapor üretimi.
+- **Web Storage API:** Tarayıcıda localStorage ile veri saklama.
+- **CSV / JSON:** Rapor dışa aktarma ve yedekleme.
+- **GitHub Pages:** Kurulum gerektirmeyen canlı demo.
+- **GitHub Actions:** Gömülü JavaScript sözdizimi ve gerekli arayüz öğelerinin kontrolü.
 
-> Portföy amaçlı geliştirilen eğitim teknolojisi projesidir.
+Uygulamanın arayüzü, stilleri ve JavaScript kodu kökteki `index.html` dosyasında bulunur. Haricî kütüphane veya paket kurulumu gerekmez.
 
-## Portföy demosunu deneme
-Uygulamayı açın ve **Örnek verileri yükle** butonuna basın. Onay sonrasında üç örnek öğrenci, üç kitap ve yedi günlük örnek okuma kayıtları oluşturulur. Öğrenci sıralamasını, grafik ve CSV raporunu inceleyin.
+## Yerelde çalıştırma
 
-**Uyarı:** Örnek veri yükleme, mevcut tarayıcı kayıtlarının yerini alır. Gerçek kayıtlarınız varsa önce JSON yedeğini indirin.
+```bash
+git clone https://github.com/alidanis61615/Ogrenci-Okuma-Takip-Sistemi-.git
+cd Ogrenci-Okuma-Takip-Sistemi-
+```
 
-## Doğrulanan kullanıcı senaryoları (12 Ekim 2026)
-Kullanıcı tarafından öğrenci/kitap ekleme, okuma kaydı, grafik ve hedef güncellemesi, sayfa yenilemede veri korunması, demo veri yükleme, öğrenci analizi, CSV indirme, JSON yedekleme ve GitHub Pages erişimi çalışır olarak bildirildi. Bunlar kullanıcı testleridir; kapsamlı otomatik uçtan uca test yerine geçmez.
+`index.html` dosyasını modern bir tarayıcıda açın. Yerel kullanım ve canlı demo farklı tarayıcı depolama alanları kullanır; kayıt taşımak için JSON yedek alın.
 
-## Manuel test senaryoları
-- Öğrenci eklenince öğrenci sayısı artmalı.
-- Kitap eklenince kitap sayısı artmalı.
-- Okuma kaydı eklenince toplam sayfa, dakika ve grafik güncellenmeli.
-- Sayfa yenilendiğinde kayıtlar korunmalı.
-- Öğrenci sıralaması sayfa toplamına göre azalan sırada olmalı.
-- CSV dosyası indirilebilmeli ve Türkçe karakterler doğru görünmeli.
-- Öğrenci seçildiğinde detay analizindeki dört gösterge doğru hesaplanmalı.
-- JSON yedek geri yükleme sonrasında veriler korunmalı.
-- Örnek veri yükleme öncesinde onay istenmeli.
+## Doğrulama
+
+12 Ekim 2026 tarihinde kullanıcı tarafından öğrenci/kitap ekleme, okuma kaydı, grafik ve hedef güncellemesi, sayfa yenilemede veri korunması, demo verileri, öğrenci analizi, CSV indirme, JSON yedekleme/geri yükleme ve GitHub Pages erişimi çalışır olarak bildirildi.
+
+Otomatik kontrol sözdizimini ve arayüz öğelerini denetler; tüm kullanım akışlarını kapsayan bir uçtan uca test değildir. Ayrıntılı manuel senaryolar [TESTING.md](TESTING.md) dosyasındadır.
+
+## Veri ve kapsam
+
+Kayıtlar yalnızca kullanılan tarayıcıda tutulur. Kullanıcı hesabı, sunucu veritabanı, çok kullanıcılı erişim veya cihazlar arasında eşitleme bulunmaz. Tarayıcı verileri silindiğinde kayıtlar kaybolabilir; JSON yedekleme bu nedenle önemlidir.
+
+Kimlik doğrulama, sunucu veritabanı, sınıf yönetimi ve PDF raporları sonraki geliştirme hedefleridir.
+
+**Geliştirici:** [Ali Danış](https://github.com/alidanis61615) · Mobil Teknolojileri mezunu, Yazılım Geliştirici

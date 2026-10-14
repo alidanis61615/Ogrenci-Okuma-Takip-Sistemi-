@@ -43,6 +43,16 @@
 
 Uygulamanın arayüzü, stilleri ve JavaScript kodu kökteki `index.html` dosyasında bulunur. Haricî kütüphane veya paket kurulumu gerekmez.
 
+## Teknik incelemeye hızlı başlangıç
+
+| İnceleme | Kaynak / akış |
+| --- | --- |
+| Kayıt yönetimi ve kalıcı veri | [`index.html`](index.html): `save()`, `render()` ve localStorage |
+| Öğrenci bazında hesaplamalar ve grafik | [`render()`](index.html): seçilen öğrencinin kayıtları ve 7 günlük toplamlar |
+| CSV ve JSON veri aktarımı | [CSV / JSON işlemleri](index.html): Türkçe karakterler için UTF-8 BOM ve CSV formül önleme |
+| Yedek kontrolü | [`valid()`](index.html): kayıt biçimi ve sayısal alan kontrolü |
+| Otomatik ve manuel doğrulama | [CI iş akışı](.github/workflows/ci.yml) · [Manuel test rehberi](TESTING.md) |
+
 ## Yerelde çalıştırma
 
 ```bash

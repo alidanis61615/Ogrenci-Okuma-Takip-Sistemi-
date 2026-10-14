@@ -1,68 +1,209 @@
 <!doctype html>
-<html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>OkuTrack | Öğrenci Okuma Takip Sistemi</title>
-<style>
-:root{font-family:Inter,system-ui,Arial,sans-serif;color:#192b42;background:#f3f6fb}*{box-sizing:border-box}body{margin:0}header{background:#132b52;color:white;padding:25px max(20px,calc((100% - 1100px)/2))}header h1{margin:0;font-size:27px}header p{opacity:.8;margin:7px 0 0}.wrap{max-width:1100px;margin:28px auto;padding:0 18px}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.card{background:white;border:1px solid #e2e8f0;border-radius:14px;padding:20px;box-shadow:0 4px 14px #1734580a}.stat strong{display:block;font-size:29px;margin-top:10px;color:#1554a2}.stat span{color:#64748b;font-size:13px}.layout{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:18px}h2{margin:0 0 16px;font-size:18px}form{display:grid;gap:10px}input,select,button{font:inherit;border-radius:9px;padding:11px;border:1px solid #cbd5e1;min-width:0}button{background:#1763bc;color:white;border:0;font-weight:600;cursor:pointer}button:hover{background:#114c92}.danger{background:#fff0f0;color:#aa2222;border:1px solid #f7caca;padding:6px 10px}.secondary{background:#e8effa;color:#1a4f91}.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.row>*{flex:1}.entry{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid #e7ecf2}.entry:last-child{border:0}.entry small{display:block;color:#718096;margin-top:4px}.entry button{flex:0 0 auto}.muted{color:#64748b;font-size:14px}.bar{background:#e8edf5;border-radius:8px;height:12px;overflow:hidden}.fill{background:#24a39a;height:100%;transition:width .2s}.wide{grid-column:1/-1}.chart{display:flex;gap:10px;align-items:end;height:145px;border-bottom:1px solid #d7e1ee;margin-top:14px}.day{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:end;height:100%;gap:5px;font-size:12px;color:#65758b}.day i{width:70%;max-width:60px;background:#5b8fd7;border-radius:5px 5px 0 0;min-height:2px}.toolbar{display:flex;gap:10px;flex-wrap:wrap}footer{text-align:center;color:#73839b;padding:25px}@media(max-width:700px){.stats{grid-template-columns:repeat(2,1fr)}.layout{grid-template-columns:1fr}.wide{grid-column:auto}header{padding:24px 18px}}
-</style></head><body>
-<header><h1>📚 OkuTrack</h1><p>Öğrenci Okuma Takip ve Analiz Sistemi</p></header>
-<main class="wrap">
-<section class="stats"><div class="card stat"><span>Öğrenciler</span><strong id="studentCount">0</strong></div><div class="card stat"><span>Kitaplar</span><strong id="bookCount">0</strong></div><div class="card stat"><span>Toplam sayfa</span><strong id="pageCount">0</strong></div><div class="card stat"><span>Toplam dakika</span><strong id="minuteCount">0</strong></div></section>
-<div class="layout">
-<section class="card"><h2>Öğrenci ekle</h2><form id="studentForm"><input id="studentName" placeholder="Öğrenci adı soyadı" maxlength="80" required><button>Öğrenciyi kaydet</button></form><div id="students"></div></section>
-<section class="card"><h2>Kitap ekle</h2><form id="bookForm"><input id="bookTitle" placeholder="Kitap adı" maxlength="120" required><input id="bookAuthor" placeholder="Yazar (isteğe bağlı)" maxlength="100"><button>Kitabı kaydet</button></form><div id="books"></div></section>
-<section class="card"><h2>Okuma kaydı oluştur</h2><form id="readingForm"><select id="readingStudent" required></select><select id="readingBook" required></select><div class="row"><input id="readingPages" type="number" min="1" max="10000" placeholder="Sayfa" required><input id="readingMinutes" type="number" min="1" max="1440" placeholder="Dakika" required></div><input id="readingDate" type="date" required><button>Okumayı kaydet</button></form></section>
-<section class="card"><h2>Günlük hedef</h2><p class="muted">Günlük toplam okunan sayfa hedefini belirle.</p><form id="goalForm"><input id="dailyGoal" type="number" min="1" max="10000" required><button>Hedefi güncelle</button></form><p id="goalText"></p><div class="bar"><div class="fill" id="goalBar"></div></div></section>
-<section class="card wide"><h2>Son 7 günün okuma analizi</h2><p class="muted">Günlük toplam okunan sayfa sayısı</p><div id="chart" class="chart"></div></section>
-<section class="card wide"><div class="row"><h2>Okuma geçmişi</h2><select id="filterStudent" aria-label="Öğrenciye göre filtrele"></select></div><div id="readings"></div></section>
-<section class="card wide"><h2>Öğrenci performans sıralaması</h2><p class="muted">Toplam okunan sayfaya göre sıralanır.</p><div id="leaderboard"></div></section>
-<section class="card wide"><h2>Öğrenci detay analizi</h2><p class="muted">Bir öğrenci seçerek okuma süresini, toplam sayfa sayısını ve okuduğu farklı kitap sayısını incele.</p><select id="analysisStudent" aria-label="Analiz için öğrenci seç"></select><div class="stats" style="margin-top:14px"><div class="card stat"><span>Okunan sayfa</span><strong id="analysisPages">0</strong></div><div class="card stat"><span>Okuma süresi (dk)</span><strong id="analysisMinutes">0</strong></div><div class="card stat"><span>Farklı kitap</span><strong id="analysisBooks">0</strong></div><div class="card stat"><span>Okuma günü</span><strong id="analysisDays">0</strong></div></div></section>
-<section class="card wide"><h2>CSV raporu</h2><p class="muted">Okuma kayıtlarını Excel ile açılabilen CSV dosyası olarak dışa aktar.</p><button type="button" id="csvBtn">CSV raporunu indir</button></section>
-<section class="card wide"><h2>Portföy demosu</h2><p class="muted">Örnek öğrenciler, kitaplar ve son 7 güne ait okuma kayıtları oluştur. Mevcut verilerin üzerine yazmadan önce onay istenir.</p><button type="button" class="secondary" id="demoBtn">Örnek verileri yükle</button></section><section class="card wide"><h2>Veri yönetimi</h2><p class="muted">Veriler bu tarayıcıda tutulur. Cihaz değiştirmeden önce JSON yedeği al.</p><div class="toolbar"><button type="button" id="exportBtn">JSON yedeği indir</button><input type="file" id="importFile" accept=".json,application/json" aria-label="JSON yedeğini yükle"><button type="button" class="danger" id="clearBtn">Tüm verileri sil</button></div></section>
-</div></main><footer>OkuTrack • Portföy projesi • HTML, CSS, JavaScript</footer>
-<script>
-'use strict';
-const KEY='okutrack-v1';
-const blank=()=>({students:[],books:[],readings:[],goal:30});
-function valid(x){return x&&Array.isArray(x.students)&&Array.isArray(x.books)&&Array.isArray(x.readings)&&Number.isFinite(Number(x.goal))&&Number(x.goal)>0&&x.students.every(s=>typeof s.id==='string'&&typeof s.name==='string')&&x.books.every(b=>typeof b.id==='string'&&typeof b.title==='string')&&x.readings.every(r=>typeof r.id==='string'&&typeof r.studentId==='string'&&typeof r.bookId==='string'&&typeof r.date==='string'&&Number.isFinite(Number(r.pages))&&Number(r.pages)>0&&Number.isFinite(Number(r.minutes))&&Number(r.minutes)>0)}
-let state;try{const saved=JSON.parse(localStorage.getItem(KEY));state=valid(saved)?saved:blank()}catch{state=blank()}
-const $=id=>document.getElementById(id);
-const uid=()=>crypto.randomUUID?crypto.randomUUID():Date.now()+'-'+Math.random().toString(36).slice(2);
-const localDate=d=>{const x=new Date(d.getTime()-d.getTimezoneOffset()*60000);return x.toISOString().slice(0,10)};
-const today=()=>localDate(new Date());
-const node=(tag,txt,cls)=>{const e=document.createElement(tag);e.textContent=txt;if(cls)e.className=cls;return e};
-function save(){localStorage.setItem(KEY,JSON.stringify(state));render()}
-function option(select,id,label){const o=document.createElement('option');o.value=id;o.textContent=label;select.append(o)}
-function fillSelect(id,items,placeholder,all=false){const el=$(id),old=el.value;el.replaceChildren();option(el,all?'':'',placeholder);items.forEach(x=>option(el,x.id,x.name||x.title));if([...el.options].some(x=>x.value===old))el.value=old}
-function list(id,items,describe,remove){const el=$(id);el.replaceChildren();if(!items.length){el.append(node('p','Henüz kayıt yok.','muted'));return}items.forEach(item=>{const row=node('div','','entry'),info=node('div','');info.append(node('strong',describe(item)));const btn=node('button','Sil','danger');btn.type='button';btn.addEventListener('click',()=>remove(item.id));row.append(info,btn);el.append(row)})}
-function removeStudent(id){if(!confirm('Öğrenci ve ona ait okuma kayıtları silinsin mi?'))return;state.students=state.students.filter(x=>x.id!==id);state.readings=state.readings.filter(x=>x.studentId!==id);save()}
-function removeBook(id){if(!confirm('Kitap ve ona ait okuma kayıtları silinsin mi?'))return;state.books=state.books.filter(x=>x.id!==id);state.readings=state.readings.filter(x=>x.bookId!==id);save()}
-function removeReading(id){state.readings=state.readings.filter(x=>x.id!==id);save()}
-function render(){
-$('studentCount').textContent=state.students.length;$('bookCount').textContent=state.books.length;
-$('pageCount').textContent=state.readings.reduce((a,x)=>a+Number(x.pages),0).toLocaleString('tr-TR');
-$('minuteCount').textContent=state.readings.reduce((a,x)=>a+Number(x.minutes),0).toLocaleString('tr-TR');
-list('students',state.students,x=>x.name,removeStudent);list('books',state.books,x=>x.title+(x.author?' — '+x.author:''),removeBook);
-fillSelect('analysisStudent',state.students,'Öğrenci seç');const selectedAnalysis=$('analysisStudent').value;const studentReadings=state.readings.filter(x=>x.studentId===selectedAnalysis);$('analysisPages').textContent=studentReadings.reduce((a,x)=>a+Number(x.pages),0).toLocaleString('tr-TR');$('analysisMinutes').textContent=studentReadings.reduce((a,x)=>a+Number(x.minutes),0).toLocaleString('tr-TR');$('analysisBooks').textContent=new Set(studentReadings.map(x=>x.bookId)).size;$('analysisDays').textContent=new Set(studentReadings.map(x=>x.date)).size;
-fillSelect('readingStudent',state.students,'Öğrenci seç');fillSelect('readingBook',state.books,'Kitap seç');fillSelect('filterStudent',state.students,'Tüm öğrenciler',true);
-const selected=$('filterStudent').value,entries=state.readings.filter(x=>!selected||x.studentId===selected).sort((a,b)=>b.date.localeCompare(a.date));
-const area=$('readings');area.replaceChildren();
-if(!entries.length)area.append(node('p','Bu filtrede okuma kaydı bulunmuyor.','muted'));
-entries.forEach(x=>{const row=node('div','','entry'),info=node('div',''),s=state.students.find(y=>y.id===x.studentId),b=state.books.find(y=>y.id===x.bookId);info.append(node('strong',(s?.name||'Silinmiş öğrenci')+' • '+(b?.title||'Silinmiş kitap')));info.append(node('small',x.date+' • '+x.pages+' sayfa • '+x.minutes+' dakika'));const btn=node('button','Sil','danger');btn.onclick=()=>removeReading(x.id);row.append(info,btn);area.append(row)});
-$('dailyGoal').value=state.goal;const done=state.readings.filter(x=>x.date===today()).reduce((a,x)=>a+Number(x.pages),0);$('goalText').textContent='Bugün: '+done+' / '+state.goal+' sayfa';$('goalBar').style.width=Math.min(100,100*done/state.goal)+'%';
-const leaderboard=$('leaderboard');leaderboard.replaceChildren();const ranking=state.students.map(student=>({name:student.name,pages:state.readings.filter(r=>r.studentId===student.id).reduce((n,r)=>n+Number(r.pages),0)})).sort((a,b)=>b.pages-a.pages);if(!ranking.length)leaderboard.append(node('p','Henüz öğrenci eklenmedi.','muted'));ranking.forEach((x,i)=>{const row=node('div','','entry');row.append(node('strong',(i+1)+'. '+x.name),node('span',x.pages+' sayfa'));leaderboard.append(row)});
-const days=Array.from({length:7},(_,i)=>{const d=new Date();d.setDate(d.getDate()-6+i);return localDate(d)});const vals=days.map(d=>state.readings.filter(x=>x.date===d).reduce((a,x)=>a+Number(x.pages),0)),max=Math.max(1,...vals);const chart=$('chart');chart.replaceChildren();days.forEach((d,i)=>{const bar=node('div','','day'),n=node('span',String(vals[i])),stick=node('i',''),label=node('span',d.slice(5));stick.style.height=Math.max(2,vals[i]/max*100)+'px';bar.append(n,stick,label);chart.append(bar)});
-}
-$('readingDate').value=today();
-$('studentForm').onsubmit=e=>{e.preventDefault();const name=$('studentName').value.trim();if(!name)return;state.students.push({id:uid(),name});e.target.reset();save()};
-$('bookForm').onsubmit=e=>{e.preventDefault();const title=$('bookTitle').value.trim(),author=$('bookAuthor').value.trim();if(!title)return;state.books.push({id:uid(),title,author});e.target.reset();save()};
-$('readingForm').onsubmit=e=>{e.preventDefault();const studentId=$('readingStudent').value,bookId=$('readingBook').value,pages=Number($('readingPages').value),minutes=Number($('readingMinutes').value),date=$('readingDate').value;if(!state.students.some(x=>x.id===studentId)||!state.books.some(x=>x.id===bookId)||!Number.isInteger(pages)||pages<1||pages>10000||!Number.isInteger(minutes)||minutes<1||minutes>1440||!/^\d{4}-\d{2}-\d{2}$/.test(date)){alert('Geçerli öğrenci, kitap, tarih, sayfa ve dakika bilgisi gir.');return}state.readings.push({id:uid(),studentId,bookId,pages,minutes,date});e.target.reset();$('readingDate').value=today();save()};
-$('goalForm').onsubmit=e=>{e.preventDefault();const goal=Number($('dailyGoal').value);if(!Number.isInteger(goal)||goal<1||goal>10000)return;state.goal=goal;save()};
-$('filterStudent').onchange=render;
-$('analysisStudent').onchange=render;
-$('csvBtn').onclick=()=>{const quote=v=>{let value=String(v??'');if(/^[=+@\-\t\r]/.test(value))value="'"+value;return '"'+value.replaceAll('"','""')+'"'};const rows=[['Tarih','Öğrenci','Kitap','Sayfa','Dakika'],...state.readings.map(r=>[r.date,state.students.find(s=>s.id===r.studentId)?.name||'',state.books.find(b=>b.id===r.bookId)?.title||'',r.pages,r.minutes])];const csv='\uFEFF'+rows.map(row=>row.map(quote).join(';')).join('\r\n');const blob=new Blob([csv],{type:'text/csv;charset=utf-8'});const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='okutrack-rapor-'+today()+'.csv';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)};
-$('exportBtn').onclick=()=>{const blob=new Blob([JSON.stringify(state,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='okutrack-yedek-'+today()+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)};
-$('importFile').onchange=async e=>{const file=e.target.files[0];if(!file)return;try{if(file.size>2e6)throw Error('Dosya çok büyük');const incoming=JSON.parse(await file.text());if(!valid(incoming))throw Error('Geçersiz yedek');if(confirm('Mevcut kayıtlar yedekle değiştirilsin mi?')){state=incoming;save()}}catch(err){alert('Yedek yüklenemedi: '+err.message)}e.target.value=''};
-$('demoBtn').onclick=()=>{if(!confirm('Örnek veri yüklemek mevcut kayıtların yerine geçecek. Devam edilsin mi?'))return;const names=['Ayşe Yılmaz','Mehmet Demir','Zeynep Kaya'],titles=[['Küçük Prens','Antoine de Saint-Exupéry'],['Şeker Portakalı','José Mauro de Vasconcelos'],['Martı','Richard Bach']];const students=names.map(name=>({id:uid(),name})),books=titles.map(([title,author])=>({id:uid(),title,author})),readings=[];for(let i=0;i<7;i++){const date=new Date();date.setDate(date.getDate()-i);students.forEach((student,j)=>{if((i+j)%4===0)return;readings.push({id:uid(),studentId:student.id,bookId:books[(i+j)%books.length].id,pages:10+((i*7+j*11)%32),minutes:15+((i*9+j*8)%40),date:localDate(date)})})}state={students,books,readings,goal:60};save();alert('Örnek veriler yüklendi. Artık grafikleri ve sıralamayı inceleyebilirsin.')};
-$('clearBtn').onclick=()=>{if(confirm('Tüm veriler kalıcı olarak silinsin mi? Önce yedek almanı öneririz.')){state=blank();save()}};
-render();
-</script></body></html>
+<html lang="tr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>OkuTrack | Öğrenci Okuma Takip Sistemi</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header>
+      <h1>📚 OkuTrack</h1>
+      <p>Öğrenci Okuma Takip ve Analiz Sistemi</p>
+    </header>
+    <main class="wrap">
+      <section class="card" id="dataWarning" role="alert" hidden>
+        <p id="dataWarningText"></p>
+        <button id="recoveryBtn" type="button">Kurtarma yedeğini indir</button>
+      </section>
+      <section class="stats">
+        <div class="card stat">
+          <span>Öğrenciler</span><strong id="studentCount">0</strong>
+        </div>
+        <div class="card stat">
+          <span>Kitaplar</span><strong id="bookCount">0</strong>
+        </div>
+        <div class="card stat">
+          <span>Toplam sayfa</span><strong id="pageCount">0</strong>
+        </div>
+        <div class="card stat">
+          <span>Toplam dakika</span><strong id="minuteCount">0</strong>
+        </div>
+      </section>
+      <div class="layout">
+        <section class="card">
+          <h2>Öğrenci ekle</h2>
+          <form id="studentForm">
+            <input
+              id="studentName"
+              aria-label="Öğrenci adı soyadı"
+              placeholder="Öğrenci adı soyadı"
+              maxlength="80"
+              required
+            /><button>Öğrenciyi kaydet</button>
+          </form>
+          <div id="students"></div>
+        </section>
+        <section class="card">
+          <h2>Kitap ekle</h2>
+          <form id="bookForm">
+            <input
+              id="bookTitle"
+              aria-label="Kitap adı"
+              placeholder="Kitap adı"
+              maxlength="120"
+              required
+            /><input
+              id="bookAuthor"
+              aria-label="Yazar"
+              placeholder="Yazar (isteğe bağlı)"
+              maxlength="100"
+            /><button>Kitabı kaydet</button>
+          </form>
+          <div id="books"></div>
+        </section>
+        <section class="card">
+          <h2>Okuma kaydı oluştur</h2>
+          <form id="readingForm">
+            <select
+              id="readingStudent"
+              aria-label="Okuma kaydı için öğrenci"
+              required
+            ></select
+            ><select
+              id="readingBook"
+              aria-label="Okuma kaydı için kitap"
+              required
+            ></select>
+            <div class="row">
+              <input
+                id="readingPages"
+                aria-label="Okunan sayfa"
+                type="number"
+                min="1"
+                max="10000"
+                placeholder="Sayfa"
+                required
+              /><input
+                id="readingMinutes"
+                aria-label="Okuma süresi (dakika)"
+                type="number"
+                min="1"
+                max="1440"
+                placeholder="Dakika"
+                required
+              />
+            </div>
+            <input
+              id="readingDate"
+              aria-label="Okuma tarihi"
+              type="date"
+              required
+            /><button>Okumayı kaydet</button>
+          </form>
+        </section>
+        <section class="card">
+          <h2>Günlük hedef</h2>
+          <p class="muted">Günlük toplam okunan sayfa hedefini belirle.</p>
+          <form id="goalForm">
+            <input
+              id="dailyGoal"
+              aria-label="Günlük sayfa hedefi"
+              type="number"
+              min="1"
+              max="10000"
+              required
+            /><button>Hedefi güncelle</button>
+          </form>
+          <p id="goalText"></p>
+          <div class="bar"><div class="fill" id="goalBar"></div></div>
+        </section>
+        <section class="card wide">
+          <h2>Son 7 günün okuma analizi</h2>
+          <p class="muted">Günlük toplam okunan sayfa sayısı</p>
+          <div id="chart" class="chart"></div>
+        </section>
+        <section class="card wide">
+          <div class="row">
+            <h2>Okuma geçmişi</h2>
+            <select
+              id="filterStudent"
+              aria-label="Öğrenciye göre filtrele"
+            ></select>
+          </div>
+          <div id="readings"></div>
+        </section>
+        <section class="card wide">
+          <h2>Öğrenci performans sıralaması</h2>
+          <p class="muted">Toplam okunan sayfaya göre sıralanır.</p>
+          <div id="leaderboard"></div>
+        </section>
+        <section class="card wide">
+          <h2>Öğrenci detay analizi</h2>
+          <p class="muted">
+            Bir öğrenci seçerek okuma süresini, toplam sayfa sayısını ve okuduğu
+            farklı kitap sayısını incele.
+          </p>
+          <select
+            id="analysisStudent"
+            aria-label="Analiz için öğrenci seç"
+          ></select>
+          <div class="stats" style="margin-top: 14px">
+            <div class="card stat">
+              <span>Okunan sayfa</span><strong id="analysisPages">0</strong>
+            </div>
+            <div class="card stat">
+              <span>Okuma süresi (dk)</span
+              ><strong id="analysisMinutes">0</strong>
+            </div>
+            <div class="card stat">
+              <span>Farklı kitap</span><strong id="analysisBooks">0</strong>
+            </div>
+            <div class="card stat">
+              <span>Okuma günü</span><strong id="analysisDays">0</strong>
+            </div>
+          </div>
+        </section>
+        <section class="card wide">
+          <h2>CSV raporu</h2>
+          <p class="muted">
+            Okuma kayıtlarını Excel ile açılabilen CSV dosyası olarak dışa
+            aktar.
+          </p>
+          <button type="button" id="csvBtn">CSV raporunu indir</button>
+        </section>
+        <section class="card wide">
+          <h2>Portföy demosu</h2>
+          <p class="muted">
+            Örnek öğrenciler, kitaplar ve son 7 güne ait okuma kayıtları
+            oluştur. Mevcut verilerin üzerine yazmadan önce onay istenir.
+          </p>
+          <button type="button" class="secondary" id="demoBtn">
+            Örnek verileri yükle
+          </button>
+        </section>
+        <section class="card wide">
+          <h2>Veri yönetimi</h2>
+          <p class="muted">
+            Veriler bu tarayıcıda tutulur. Cihaz değiştirmeden önce JSON yedeği
+            al.
+          </p>
+          <div class="toolbar">
+            <button type="button" id="exportBtn">JSON yedeği indir</button
+            ><input
+              type="file"
+              id="importFile"
+              accept=".json,application/json"
+              aria-label="JSON yedeğini yükle"
+            /><button type="button" class="danger" id="clearBtn">
+              Tüm verileri sil
+            </button>
+          </div>
+        </section>
+      </div>
+    </main>
+    <footer>OkuTrack • Portföy projesi • HTML, CSS, JavaScript</footer>
+    <script src="core.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>

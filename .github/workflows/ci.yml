@@ -2,6 +2,8 @@ name: Code quality
 on:
   push:
   pull_request:
+permissions:
+  contents: read
 jobs:
   validate:
     runs-on: ubuntu-latest
@@ -9,24 +11,8 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: '22'
-      - name: Check embedded JavaScript syntax
-        run: |
-          node - <<'NODE'
-          const fs = require('fs');
-          const html = fs.readFileSync('index.html','utf8');
-          const script = html.match(/<script>([\s\S]*?)<\/script>/);
-          if (!script) throw new Error('Script missing');
-          new Function(script[1]);
-          console.log('JavaScript syntax OK');
-          NODE
-      - name: Check required app elements
-        run: |
-          node - <<'NODE'
-          const fs=require('fs');
-          const html=fs.readFileSync('index.html','utf8');
-          for(const id of ['studentForm','bookForm','readingForm','goalForm','chart','exportBtn','importFile']) {
-            if(!html.includes('id="'+id+'"')) throw new Error('Missing element '+id);
-          }
-          console.log('Required elements OK');
-          NODE
+          node-version: "22"
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - run: npm run check
+      - run: npm test

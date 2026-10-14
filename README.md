@@ -75,3 +75,20 @@ Kayıtlar yalnızca kullanılan tarayıcıda tutulur. Kullanıcı hesabı, sunuc
 Kimlik doğrulama, sunucu veritabanı, sınıf yönetimi ve PDF raporları sonraki geliştirme hedefleridir.
 
 **Geliştirici:** [Ali Danış](https://github.com/alidanis61615) · Mobil Teknolojileri mezunu, Yazılım Geliştirici
+
+## Kod yapısı ve otomatik testler
+
+- `core.js`: yedek doğrulama, kayıt ilişkileri, öğrenci analizi ve CSV üretimi.
+- `app.js`: formlar, görünüm ve tarayıcı depolama akışı.
+- `styles.css`: responsive arayüz.
+- `test/`: Node test runner ve jsdom ile 22 davranış testi.
+
+```bash
+npm ci --ignore-scripts
+npm run check
+npm test
+```
+
+Yedek yükleme; tam sayıları, gerçek takvim tarihlerini, benzersiz kimlikleri ve öğrenci/kitap ilişkilerini doğrular. Geçersiz veya 2 MB sınırını aşan JSON mevcut kayıtların üzerine yazılmaz. Tarayıcı depolama hatasında ekran kaydedilmemiş veriyi başarılı göstermemiş olur. Başlangıçtaki kayıtlar okunamıyorsa orijinal içerik korunur ve kurtarma indirmesi sunulur.
+
+Testler; öğrenci/kitap/okuma oluşturma, sayfa hedefi, öğrenci analizi, yeniden yükleme, bozuk yedek, kayıt kotası, ilişkili kayıtların silinmesi ve CSV formül korumasını kapsar.

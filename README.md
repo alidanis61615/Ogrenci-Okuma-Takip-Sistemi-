@@ -6,6 +6,15 @@
 
 [![Code quality](https://github.com/alidanis61615/Ogrenci-Okuma-Takip-Sistemi-/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/alidanis61615/Ogrenci-Okuma-Takip-Sistemi-/actions/workflows/ci.yml)
 
+## Bu portföy sürümündeki katkım
+
+Öğrenci, kitap ve okuma kayıtlarını; günlük hedef, öğrenci analizi ve CSV/JSON aktarımını geliştirdim. Veri kurallarını `core.js`, ekran ve depolama akışını `app.js` içinde düzenledim.
+
+**Teknik kararım:** Kurulum gerektirmeyen bir web demosu için localStorage kullanmak; JSON geri yüklemesinde tarihleri, tam sayıları ve öğrenci/kitap ilişkilerini yazma işleminden önce doğrulamak.
+
+**Çözdüğüm hata:** Bozuk yedeğin veya depolama kotası hatasının kaydedilmiş verileri değiştirmesini önledim. Başlangıçtaki içerik okunamıyorsa orijinal veriyi koruyup kurtarma indirmesi sunuyorum. Bu davranışları 22 Node/jsdom testiyle denetledim.
+
+
 ## Özellikler
 
 | Alan | İşlevler |

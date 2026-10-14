@@ -39,18 +39,18 @@
 - **Web Storage API:** Tarayıcıda localStorage ile veri saklama.
 - **CSV / JSON:** Rapor dışa aktarma ve yedekleme.
 - **GitHub Pages:** Kurulum gerektirmeyen canlı demo.
-- **GitHub Actions:** Gömülü JavaScript sözdizimi ve gerekli arayüz öğelerinin kontrolü.
+- **GitHub Actions:** JavaScript sözdizimi ve Node/jsdom ile 22 davranış testi.
 
-Uygulamanın arayüzü, stilleri ve JavaScript kodu kökteki `index.html` dosyasında bulunur. Haricî kütüphane veya paket kurulumu gerekmez.
+Arayüz `index.html`, stiller `styles.css`, veri ve yedek kuralları `core.js`, ekran/depolama akışı `app.js` içindedir. Uygulamayı kullanmak için paket kurulumu gerekmez; otomatik testler için Node.js ve `npm ci --ignore-scripts` kullanılır.
 
 ## Teknik incelemeye hızlı başlangıç
 
 | İnceleme | Kaynak / akış |
 | --- | --- |
-| Kayıt yönetimi ve kalıcı veri | [`index.html`](index.html): `save()`, `render()` ve localStorage |
-| Öğrenci bazında hesaplamalar ve grafik | [`render()`](index.html): seçilen öğrencinin kayıtları ve 7 günlük toplamlar |
-| CSV ve JSON veri aktarımı | [CSV / JSON işlemleri](index.html): Türkçe karakterler için UTF-8 BOM ve CSV formül önleme |
-| Yedek kontrolü | [`valid()`](index.html): kayıt biçimi ve sayısal alan kontrolü |
+| Kayıt yönetimi ve kalıcı veri | [`app.js`](app.js): `save()`, `render()` ve localStorage |
+| Öğrenci bazında hesaplamalar ve grafik | [Öğrenci analizi](core.js): `analysis()` · [Grafik](app.js): `render()` |
+| CSV ve JSON veri aktarımı | [CSV / JSON işlemleri](core.js): `toCSV()`, `parseBackup()` ve `restoreBackup()` |
+| Yedek kontrolü | [`validateState()`](core.js): sayılar, takvim tarihleri, benzersiz kimlikler ve kayıt ilişkileri |
 | Otomatik ve manuel doğrulama | [CI iş akışı](.github/workflows/ci.yml) · [Manuel test rehberi](TESTING.md) |
 
 ## Yerelde çalıştırma
@@ -66,7 +66,7 @@ cd Ogrenci-Okuma-Takip-Sistemi-
 
 12 Ekim 2026 tarihinde kullanıcı tarafından öğrenci/kitap ekleme, okuma kaydı, grafik ve hedef güncellemesi, sayfa yenilemede veri korunması, demo verileri, öğrenci analizi, CSV indirme, JSON yedekleme/geri yükleme ve GitHub Pages erişimi çalışır olarak bildirildi.
 
-Otomatik kontrol sözdizimini ve arayüz öğelerini denetler; tüm kullanım akışlarını kapsayan bir uçtan uca test değildir. Ayrıntılı manuel senaryolar [TESTING.md](TESTING.md) dosyasındadır.
+Otomatik kontroller JavaScript sözdizimini ve 22 davranış testini çalıştırır. Node testleri veri/yedek kurallarını, jsdom testleri ise formlar, analiz, yeniden yükleme ve depolama hata akışlarını denetler. Gerçek tarayıcıdaki mobil görünüm ve dosya indirme kontrolleri için [TESTING.md](TESTING.md) kullanılır.
 
 ## Veri ve kapsam
 

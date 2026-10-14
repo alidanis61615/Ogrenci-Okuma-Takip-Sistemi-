@@ -18,7 +18,13 @@ Kontrolleri örnek kayıtlarla gerçekleştirin. JSON geri yükleme ve örnek ve
 
 ## Otomatik kontrolün kapsamı
 
-GitHub Actions içindeki `ci.yml`, gömülü JavaScript'in sözdizimini ve gerekli arayüz öğelerinin varlığını kontrol eder. Bu kontrol, yukarıdaki akışları tarayıcıda çalıştırmaz.
+GitHub Actions içindeki `ci.yml`, `core.js` ve `app.js` sözdizimini denetler; `npm test` ile 22 Node/jsdom davranış testini çalıştırır. Veri doğrulama, ilişkili kayıtların silinmesi, öğrenci analizi, CSV koruması, form işlemleri, yeniden yükleme, bozuk yedek ve depolama hataları kapsanır. jsdom bir gerçek tarayıcı değildir; mobil düzen, gerçek dosya indirme ve cihaz üzerinde kullanım yukarıdaki manuel senaryolarla ayrıca kontrol edilir.
+
+```bash
+npm ci --ignore-scripts
+npm run check
+npm test
+```
 
 ## Önceki kullanıcı doğrulaması
 
